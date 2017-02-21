@@ -1,5 +1,66 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+\documentclass[a4paper,12pt,twoside]{report}
+
+\input{preamble.tex}
+
+%\input{NE_PAS_TOUCHER/couverture.tex}
+
+
+
+\pretitle{\Huge \begin{center} \bfseries \color{belux}}
+\title{Apprentissage de règles de décision sur des flots de données}
+\date{\today}
+\author{
+	Clément \textsc{Fournier} \and
+	Léandre \textsc{Le Polles-{-}Potin} \and
+	Bassirou \textsc{Seye} \and
+	Pierre \textsc{Testart}
+}
+\widowpenalty10000
+\setlength{\parskip}{4pt}
+
 \begin{document}
-(Type your content here.)
+	
+	{
+		\pagestyle{empty}
+		\input{NE_PAS_TOUCHER/cover.tex}
+		\cleardoublepage		
+	}
+
+	\newgeometry{top=2cm,bottom=2cm,inner=3cm,outer=2cm}
+	{
+		\pagestyle{empty}
+		\maketitle
+		\tableofcontents
+        \thispagestyle{empty}
+        \input{./SOURCES/presentation.tex}
+		\listoffigures
+        \begingroup
+        \let\clearpage\relax
+        \listoftables
+        \endgroup
+        \thispagestyle{empty}
+		\cleardoublepage
+	}
+		
+  	\input{./SOURCES/introduction.tex} 
+	\input{./SOURCES/partie1.tex}
+	\input{./SOURCES/partie2.tex}
+  	\input{./SOURCES/partie3.tex}
+  	\input{./SOURCES/conclusion.tex}
+	
+    \cleardoublepage 
+	\nocite{*}
+	\bibliographystyle{plain-annote}
+	\bibliography{references}
+      
+      
+	\pagestyle{empty}
+	\cleardoublepage~
+	\newpage\thispagestyle{empty}
+	\newgeometry{top=0cm,bottom=0cm,left=0cm,right=0cm}
+	\hspace{-.75cm}
+	\includegraphics[width=21cm]{NE_PAS_TOUCHER/pfe-insa-page2.png}
+
+
+        
 \end{document}

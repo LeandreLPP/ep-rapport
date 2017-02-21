@@ -1,0 +1,126 @@
+\makeatletter
+
+	\usepackage[french]{babel}
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc}
+	
+	\usepackage{xcolor}
+	\usepackage{xkeyval}
+	\usepackage{geometry}
+	\usepackage{graphicx}
+	\usepackage{lipsum}
+	\usepackage{xspace}			
+	\usepackage{lmodern} 
+    \usepackage{titling}
+	\usepackage{sectsty}
+	
+	\definecolorset{HTML}{}{}{belux,900A40;underbelux,AA526A;antibelux,000000}	% 
+		
+	\allsectionsfont{\color{black}}					
+	\partfont{\color{belux}}						
+	\chapterfont{\color{belux}}						
+	\sectionfont{\color{belux}}						
+	\subsectionfont{\color{belux}}					
+	\subsubsectionfont{\color{underbelux}}				
+	
+
+
+
+%---------------------------
+%% GEOMETRY MANAGEMENT
+
+	\def\definegeometry#1#2{									%%
+		\define@key{modelgeometries}{#1}[]{\geometry{#2}}			%%
+		\define@key{setgeometrykeys}{#1}[]{\newgeometry{#2}}		%%
+	}
+
+
+	%%--------------------- \setmodelgeometry
+
+	\newcommand{\setmodelgeometry}[1]{
+		\setkeys{modelgeometries}{#1}
+	}
+
+
+	%%--------------------- setgeometry environment
+
+	\newenvironment{setgeometry}[1]
+		{\setkeys{setgeometrykeys}{#1}}
+		{\restoregeometry}
+
+
+	
+	
+
+	%% GEOMETRIES LIBRARY
+	%%-------------------
+
+	\definegeometry{math}			%% MATH
+		{					
+			inner=90pt,		
+			bottom=65pt,
+			top=65pt,
+			outer=70pt			
+		}
+	
+	\definegeometry{cover}			%% COVER - used in front_management
+	{					
+		top=3.5cm,			
+		bottom=0cm,			
+		inner= 0.6cm,		
+		outer=0.6cm			
+	}
+	
+	\setmodelgeometry{math}
+	
+	
+\makeatother
+
+
+%------------------
+%------------------
+
+
+%% PACKAGES
+%\usepackage{caption,subcaption}
+%	\captionsetup{singlelinecheck=off}
+
+\usepackage{hhline}
+\usepackage{eurosym}
+
+\usepackage{tgcursor}
+
+%%
+\usepackage{appendix}
+	\makeatletter
+	%	\@addtoreset{chapter}{part}
+		\@addtoreset{@ppsaveapp}{part}
+	\makeatother
+
+\usepackage[hidelinks]{hyperref}
+
+
+\addto\captionsfrench{\renewcommand{\chaptername}{Partie}}
+
+
+%\ExecuteBibliographyOptions{
+%datamodel=NE_PAS_TOUCHER/mynote.dbx,
+%}
+%\usepackage[
+%	backend=biber,
+ %	style=trad-plain,
+ % 	citestyle=authoryear,
+  %	sorting=none,
+   % datamodel=NE_PAS_TOUCHER/mynote.dbx,
+%]{biblatex}
+%\DeclareDatamodelFields[type=field,datatype=literal]{mynote}
+%\usepackage{xpatch}
+%\xapptobibmacro{finentry}{\par\printfield{mynote}}{}{}
+
+
+%% DEFINITIONS
+
+
+\def\cad{c'est-à-dire}
+\def\ie{\emph{i.e.}}
+    
