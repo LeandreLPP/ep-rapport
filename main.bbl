@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname fonteauteurs\endcsname\relax
+\def\fonteauteurs{\scshape}\fi
+
+\bibitem{Gama-VFDR}
+Jo\~{a}o \bgroup\fonteauteurs\bgroup Gama\egroup\egroup{} et Petr
+  \bgroup\fonteauteurs\bgroup Kosina\egroup\egroup{} :
+\newblock Learning decision rules from data streams.
+\newblock \emph{In} {\em Proceedings of the Twenty-Second International Joint
+  Conference on Artificial Intelligence - Volume Two}, IJCAI'11, pages
+  1255--1260. AAAI Press, 2011.
+
+\end{thebibliography}
