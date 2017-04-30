@@ -15,32 +15,8 @@
 	Bassirou \textsc{Seye} \and
 	Pierre \textsc{Testart}
 }
-\widowpenalty10000
-\setlength{\parskip}{4pt}
 
-\begin{document}
-	
-	{
-		\pagestyle{empty}
-		\input{NE_PAS_TOUCHER/cover.tex}
-		\cleardoublepage		
-	}
-
-	\newgeometry{top=2cm,bottom=2cm,inner=3cm,outer=2cm}
-	{
-		\pagestyle{empty}
-		\maketitle
-		\tableofcontents
-        \thispagestyle{empty}
-        \input{./SOURCES/presentation.tex}
-		\listoffigures
-        \begingroup
-        \let\clearpage\relax
-        \listoftables
-        \endgroup
-        \thispagestyle{empty}
-		\cleardoublepage
-	}
+\begin{document}	
 		
   	\input{./SOURCES/introduction.tex} 
 	\input{./SOURCES/partie1.tex}
@@ -52,15 +28,5 @@
 	\nocite{*}
 	\bibliographystyle{plain-annote}
 	\bibliography{references}
-      
-      
-	\pagestyle{empty}
-	%\cleardoublepage
-	~\newpage~\newpage\thispagestyle{empty}
-	\newgeometry{top=0cm,bottom=0cm,left=0cm,right=0cm}
-	\hspace{-.75cm}
-	\includegraphics[width=21cm]{NE_PAS_TOUCHER/pfe-insa-page2.png}
-
-
-        
+              
 \end{document}
