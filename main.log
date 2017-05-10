@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.4.30)  30 APR 2017 15:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.4.30)  10 MAY 2017 15:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -27,13 +27,13 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count87
 )
-(/home/clifr/texmf/tex/latex/titling/titling.sty
+(/home/clifrr/texmf/tex/latex/titling/titling.sty
 Package: titling 2009/09/04 v2.1d maketitle typesetting
 \thanksmarkwidth=\skip43
 \thanksmargin=\skip44
 \droptitle=\skip45
 )
-(/home/clifr/texmf/tex/latex/exptech.sty
+(/home/clifrr/texmf/tex/latex/exptech.sty
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -375,13 +375,13 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(/home/clifr/texmf/tex/generic/babel/babel.sty
+(/home/clifrr/texmf/tex/generic/babel/babel.sty
 Package: babel 2016/02/24 3.9q The Babel package
 
-(/home/clifr/texmf/tex/generic/babel-french/frenchb.ldf
+(/home/clifrr/texmf/tex/generic/babel-french/frenchb.ldf
 Language: frenchb 2016/03/18 v3.2a French support from the babel system
 
-(/home/clifr/texmf/tex/generic/babel/babel.def
+(/home/clifrr/texmf/tex/generic/babel/babel.def
 File: babel.def 2016/02/24 3.9q Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen105
@@ -419,18 +419,18 @@ Package babel Info: Making ? an active character on input line 345.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -480,40 +480,60 @@ Package etexcmds Info: Could not find \expanded.
 Package epstopdf Warning: Drivers other than `pdftex.def' are not supported.
 
 )
-LaTeX Info: Redefining \degres on input line 35.
-LaTeX Info: Redefining \dots on input line 35.
-LaTeX Info: Redefining \up on input line 35.
+LaTeX Info: Redefining \degres on input line 39.
+LaTeX Info: Redefining \dots on input line 39.
+LaTeX Info: Redefining \up on input line 39.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 37.
+(Font)              <12> on input line 41.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 37.
+(Font)              <8> on input line 41.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 37.
- [1
+(Font)              <6> on input line 41.
+ (./SOURCES/partie1.tex
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 13.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.bbl) [2]
-(./main.aux) ) 
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Underfull \hbox (badness 1565) in paragraph at lines 55--56
+[]\T1/cmr/m/n/10.95 Un estimateur gaussien, permettant de calculer pour chaque 
+attribut
+ []
+
+) (./SOURCES/partie2.tex
+Underfull \hbox (badness 3838) in paragraph at lines 10--13
+[]\T1/cmr/m/n/10.95 Comparer VFDR avec d'autres algorithmes comme VFDT Illustre
+r la
+ []
+
+) (./SOURCES/partie3.tex) (./main.bbl) [3] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2868 strings out of 494910
- 37165 string characters out of 6179836
- 193830 words of memory out of 5000000
- 6118 multiletter control sequences out of 15000+600000
- 16541 words of font info for 37 fonts, out of 8000000 for 9000
+ 2905 strings out of 494910
+ 38029 string characters out of 6179836
+ 193837 words of memory out of 5000000
+ 6139 multiletter control sequences out of 15000+600000
+ 18414 words of font info for 40 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,6n,32p,230b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/clifr/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600
-pk> </home/clifr/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk> </home/
-clifr/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbl1095.600pk> </home/clifr/.texm
-f-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/clifr/.texmf-var/fonts
-/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/clifr/.texmf-var/fonts/pk/ljfour/
-jknappen/ec/ecrm1000.600pk> </home/clifr/.texmf-var/fonts/pk/ljfour/jknappen/ec
-/ecbx1000.600pk> </home/clifr/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.6
-00pk> </home/clifr/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </hom
-e/clifr/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk>
-Output written on main.pdf (2 pages, 67599 bytes).
+ 38i,6n,32p,762b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/clifrr/.texmf-
+var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk> </home/clifrr/.texmf-var/fonts/
+pk/ljfour/jknappen/ec/ecbl1095.600pk> </home/clifrr/.texmf-var/fonts/pk/ljfour/
+jknappen/ec/ectt1095.600pk> </home/clifrr/.texmf-var/fonts/pk/ljfour/jknappen/e
+c/ecti1095.600pk> </home/clifrr/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095
+.600pk> </home/clifrr/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </
+home/clifrr/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/clifr
+r/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/clifrr/.texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/clifrr/.texmf-var/fonts/p
+k/ljfour/jknappen/ec/ecbx1000.600pk> </home/clifrr/.texmf-var/fonts/pk/ljfour/j
+knappen/ec/eccc1200.600pk> </home/clifrr/.texmf-var/fonts/pk/ljfour/jknappen/ec
+/ecrm1200.600pk> </home/clifrr/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.
+600pk>
+Output written on main.pdf (3 pages, 111854 bytes).
 PDF statistics:
- 264 PDF objects out of 1000 (max. 8388607)
- 46 compressed objects within 1 object stream
+ 414 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

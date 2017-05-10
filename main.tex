@@ -1,0 +1,61 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     STYLE POUR LES EXPOSÉS TECHNIQUES 
+%         3e année INSA de Rennes
+%
+%             NE PAS MODIFIER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,11pt]{article}
+
+%\usepackage{biblatex}
+\usepackage{lipsum}
+\usepackage{titling}
+\usepackage{exptech}       % Fichier (./exptech.sty) contenant les styles pour 
+                           % l'expose technique (ne pas le modifier)
+
+%\linespread{1,6}          % Pour une version destinée à un relecteur,
+                           % décommenter cette commande (double interligne) 
+                           
+% UTILISEZ SPELL (correcteur orthographique) à accès simplifié depuis XEmacs
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{ \textbf{Apprentissage incrémental de règles de décision} }
+\markright{\thetitle} 
+                           % Pour avoir le titre de l'expose sur chaque page
+
+\author{Bassirou \textsc{Seye}, Clément \textsc{Fournier}, \\
+        Léandre \textsc{Le Polles -{}- Potin}, Pierre \textsc{Testart} \\
+        \\
+        Encadreur : Laurence \textsc{Rozé}}
+
+\date{}                    % Ne pas modifier
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\antd#1{\texttt{#1}}
+
+
+\begin{document}          
+
+    \maketitle                 % Génère le titre
+    \thispagestyle{empty}      % Supprime le numéro de page sur la 1re page
+
+    \begin{abstract}
+        Notre projet a eu pour but de nous faire implémenter l’algorithme VFDR, en nous servant de l’API de Weka. Cet algorithme est décrit dans le document de recherche intitulé “Learning decision Rules from Data Streams” de João Gama et Petr Kosina.
+
+    \end{abstract} 
+
+    \input{./SOURCES/partie1.tex}
+    \input{./SOURCES/partie2.tex}
+    \input{./SOURCES/partie3.tex}
+        
+
+    \section{Conclusion} 
+%        \lipsum[2]
+
+    \nocite{*}
+    \bibliography{biblio}
+
+
+\end{document}
