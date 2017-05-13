@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=latex 2017.4.30)  13 MAY 2017 18:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=latex 2017.4.30)  13 MAY 2017 19:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**main.tex
+**main
 (./main.tex
 LaTeX2e <2016/02/01>
 Babel <3.9q> and hyphenation patterns for 5 language(s) loaded.
@@ -850,13 +850,19 @@ PGFPlots: reading {SOURCES/swans.csv}
 Missing character: There is no ; in font nullfont!
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line 51.
- [2] [3] [4]) (./SOURCES/partie2.tex
-Underfull \hbox (badness 3838) in paragraph at lines 10--13
-[]\T1/cmr/m/n/10.95 Comparer VFDR avec d'autres algorithmes comme VFDT Illustre
-r la
+ [2]
+Underfull \hbox (badness 1320) in paragraph at lines 83--84
+[]\T1/cmr/m/n/10.95 Cette structure de données, qu'on appelle les \T1/cmr/m/it/
+10.95 statistiques suffisantes\T1/cmr/m/n/10.95 , est
  []
 
-) (./SOURCES/partie3.tex) (./main.bbl) [5] (./main.aux) ) 
+[3] [4]) (./SOURCES/partie2.tex [5]) (./SOURCES/partie3.tex
+Underfull \hbox (badness 1215) in paragraph at lines 23--1
+[]\T1/cmr/m/n/10.95 Lorsque l'on demande au Vfdr de classifier un exemple via l
+a méthode
+ []
+
+) (./main.bbl [6]) [7] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  22080 strings out of 494911
  567055 string characters out of 6179862
@@ -864,6 +870,6 @@ Here is how much of TeX's memory you used:
  25000 multiletter control sequences out of 15000+600000
  19030 words of font info for 42 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 62i,16n,103p,932b,2231s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,16n,103p,928b,2231s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (5 pages, 43132 bytes).
+Output written on main.dvi (7 pages, 51380 bytes).

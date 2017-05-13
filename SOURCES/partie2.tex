@@ -1,14 +1,23 @@
-\section{Second chapter}
+\section{Travail réalisé}
 
+    \subsection{Organisation} 
 
+        Notre objectif pour ce second semestre d’étude pratique était d’implémenter l’algorithme. Nous avons décidé de travailler chacun de notre côté dans un premier temps, car nous ne connaissions pas bien le fonctionnement de Weka, et le travail semblait difficilement sécable. Cette approche nous a effectivement permis de nous familiariser individuellement avec la bibliothèque Weka, et nous avons chacun travaillé sur un début d’implémentation du VFDR.
 
-Travail réalisé :  
-Organisation  
-Comment fonctionne le programme ?
-Limites de l’implémentation
+        Nous nous sommes ensuite réunis pour comparer nos avancées respectives, et nos choix d’implémentation. Nous avons décidé de conserver les choix faits par Clément, qui avait déjà bien avancé dans l’implémentation de l’algorithme. C’est donc la base que nous avons choisie pour terminer le travail du semestre.
 
-Comparer VFDR avec d’autres algorithmes comme VFDT
-Illustrer la comparaison avec un exemple : SPAM
-Illustrer le fait que VFDR soit incrémental
+    \subsection{Fonctionnement du programme}
 
-Limites de l’implémentation : nombre d’attributs ? Taille attributs ? Nombre
+        La classe principale de notre programme, nommée Vfdr, hérite de la classe Weka RandomizableClassifier, qui fournit des attributs et méthodes utiles pour les classifieurs utilisant l’aléatoire. Vfdr implémente aussi plusieurs interfaces, notamment UpdateableClassifier, qui permet de mettre en avant l’aspect incrémental de l’algorithme.
+
+        Vfdr possède des attributs servant d’options de configuration, ainsi qu’une liste de VfdrRule, représentant l’ensemble des règles, et une VfdrRule à part, qui est la règle par défaut.
+
+        Chaque objet VfdrRule possède lui-même une liste d’Antd, une classe abstraite servant à représenter les antécédents possibles pour les règles (spécialisée en NumericAntd pour les conditions sur les attributs numériques, et NominalAntd pour les conditions sur les attributs nominaux). VfdrRule possède aussi une référence vers un objet SufficientStats, qui stocke les statistiques associées à la règle. 
+
+        Dans l’implémentation, nous avons choisi d’identifier les classes des exemples par des Strings (le nom de la classe). Par conséquent, dans SufficientStats, le nombre d’exemples couverts par classe est stocké dans une Map<String, Integer>. Pour ce qui est des attributs, ils peuvent être représentés par des entiers (leur indice). On utilise par exemple une List<Integer> pour stocker les attributs déjà utilisés dans SufficientStats. Cependant, les attributs sont parfois identifiés par leur nom, comme les classes : les statistiques par attributs sont stockés dans une Map<String, AttributeStats>, où AttributeStats est une classe abstraite qui a des spécialisations différentes selon le type d’attribut.
+
+        Pour gérer les statistiques des attributs numériques, certaines descriptions de VFDR indiquent d’utiliser un arbre binaire qui stocke pour chaque attribut la chance de rencontrer une valeur supérieure à chaque valeur déjà rencontrée. Pour simplifier l’implémentation, nous avons plutôt utilisé une densité de probabilité pour représenter les valeurs rencontrées : c’est la classe GaussianAttributeStats, qui hérite de AttributeStats. Les calculs sont faits dans la classe interne GaussianEstimator, qui hérite de la classe Weka UnivariateNormalEstimator. Ce choix a aussi l’avantage de limiter la complexité en temps et en espace.
+        
+        Pour l’expansion d’une règle, une liste de CandidateAntd (antécédents candidats) est créée. Le score de chaque candidat est évalué à l’aide d’un objet ExpansionMetric. Notons qu’ExpansionMetric est une classe abstraite, mais qu’elle n’a qu’une seule spécialisation possible : Entropy, qui utilise des calculs d’entropie pour évaluer la qualité d’une séparation. La mise en place d’une classe abstraite permet de laisser la possibilité d’améliorer l’implémentation, en ajoutant des méthodes d’évaluation de séparation, en limitant les modifications à apporter au code existant.
+        
+        Lorsque l’on demande au Vfdr de classifier un exemple via la méthode “distributionForInstance”, sa stratégie de classification (représentée par la classe abstraite ClassificationStrategy) entre en jeu. Pour les ensembles ordonnés de règles, la stratégie est de type FirstHit, on renvoie la classe donnée par la première règle qui couvre l’exemple. Pour les ensembles non ordonnés, la stratégie est de type WeightedMax, on choisit alors la classe à partir de la règle qui couvre l’exemple et a le poids le plus élevé (le plus grand nombre total d’exemples couverts).

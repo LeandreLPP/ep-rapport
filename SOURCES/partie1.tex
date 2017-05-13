@@ -76,14 +76,16 @@
 
             Lorsque l’algorithme reçoit un individu étiqueté, il tente de le faire correspondre à chaque règle de l’ensemble de règles créés ou à la règle par défaut. Si la règle qui le couvre contient suffisamment d’individus, elle est étendue pour améliorer sa précision. L’extension d’une règle consiste à lui rajouter un littéral. Lorsque c’est la règle vide qui devrait être étendue, une nouvelle règle est créée à la place. Ainsi, l’algorithme construit l’ensemble de règle qui servira à classifier les individus non étiquetés.
 
-        \subsubsection{Description des statistiques}
+        \subsubsection{Statistiques suffisantes}
 
-            Pour ne pas saturer la mémoire, l’algorithme n’enregistre pas l’ensemble des individus traités, mais utilise une structure de donnée permettant de calculer les statistiques pertinentes liée à chaque règle. Cette structure de données est composée de : 
+            Pour ne pas saturer la mémoire, l’algorithme ne mémorise pas l’ensemble des individus traités, mais utilise une structure de donnée contenant des statistiques sur les individus couverts par la règle.
+
+            Cette structure de données, qu’on appelle les \emph{statistiques suffisantes}, est constituée de :
             \begin{itemize}
-                \item Un entier, correspondant au nombre d’individus couverts par la règle.
-                \item Un vecteur d’entier, comprenant le nombre d’occurence de chaque classe parmis les individus couverts.
-                \item Une matrice, représentant le nombre d'occurrence de chaque valeur des attributs nominaux pour chaque classe.
-                \item Un estimateur gaussien par classe, permettant de calculer pour chaque attribut numérique la probabilité de rencontrer une valeur supérieur à telle ou telle valeur déjà rencontrée.
+                \item Un entier donnant le nombre d’individus couverts par la règle;
+                \item Un vecteur d’entiers, qui stocke le nombre d’occurence de chaque classe parmis les individus couverts (distribution de classe);
+                \item Une matrice représentant le nombre d'occurrence de chaque valeur des attributs nominaux pour chaque classe;
+                \item Un estimateur gaussien par classe, permettant de calculer pour chaque attribut numérique la probabilité de rencontrer une valeur supérieur à une valeur déjà rencontrée.
             \end{itemize}
 
             Prenons l’exemple des oies et des cygnes. Nous lançons l'algorithme sur les sept individus suivants :
@@ -119,11 +121,18 @@
                 \item Les estimateurs gaussiens de chaque classe seraient ajustés aux valeurs de taille déjà rencontrées.
             \end{itemize}
 
-            Ainsi, à chaque ajout d’un individu couvert par la règle, il suffit de mettre à jour les statistiques pour garder en mémoire les informations importantes. L’ensemble de règle construit par VFDR peut être \emph{ordonné} ou désordonné. Dans le premier cas, seule la première règle qui couvre l’individu est mise à jour. Dans le second cas, toutes les règles couvrant l’individu sont mises à jour et éventuellement étendues. Cependant, dans les deux cas de figure, la règle par défaut n’est mise à jour que si aucune autre règle ne couvre l’individu.
+            Ainsi, à chaque ajout d’un individu couvert par la règle, il suffit de mettre à jour les statistiques pour garder en mémoire les informations importantes. L’ensemble de règle construit par VFDR peut être \emph{ordonné} ou désordonné. Dans le premier cas, seule la première règle qui couvre l’individu est mise à jour. Dans le second cas, toutes les règles couvrant l’individu sont mises à jour et éventuellement étendues. Cependant, dans les deux cas de figure, la règle par défaut n’est mise à jour que si \emph{aucune} autre règle ne couvre l’individu.
 
             Quand une règle atteint le nombre d’individus définis précédemment, l’algorithme procède à l’extension de cette règle.
 
         \subsubsection{Expansion d'une règle}
+
+            Lors de l’expansion d’une règle, on cherche à lui ajouter un littéral de sorte que la distribution de classe de la règle étendue soit la plus pure possible, c’est-à-dire qu’une classe en particulier y soit beaucoup plus représentée. Ceci permet de prendre des décisions plus facilement, puisqu’il y aura une plus forte certitude qu’un individu couvert appartienne à la classe majoritairement représentée. À cet effet, on utilise une mesure de la pureté d’une distribution de classe qu’on appelle l’entropie. Une distribution de classe parfaitement pure aura une entropie nulle, on cherche donc à la minimiser.
+            
+            Pour étendre une règle, l’algorithme cherche le littéral qui minimise l’entropie de la distribution de classe a priori de la règle étendue. Cela implique de trouver à la fois l’attribut et la valeur sur lequel on va le tester. Parmi tous les attributs qui n’appartiennent à aucun littéral de la règle, on cherche alors la valeur de test qui produira l’entropie la plus faible dans la distribution, qu’on estime grâce aux statistiques qu’on possède sur les attributs (stockées dans les statistiques suffisantes).
+
+            Une fois le meilleur littéral construit, on l’ajoute à la règle et on réinitialise ses statistiques.  Les nouveaux individus couverts par la classe serviront à repeupler ces statistiques jusqu'à la prochaine extension de la règle.
+
         
         \subsubsection{Stratégies de classification}\label{ssec:nondecisional}
             On a déjà dit que chaque règle stocke la distribution de classe des individus qu'elle couvre. La classification d'un individu n'est donc pas automatique lorsqu'une règle le couvre, mais obéit à une \emph{stratégie de classifications} qu'on peut paramétrer.
