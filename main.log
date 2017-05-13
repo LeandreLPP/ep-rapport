@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=latex 2017.4.30)  13 MAY 2017 19:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=latex 2017.4.30)  13 MAY 2017 20:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -812,31 +812,31 @@ File: pgflibraryplotmarks.code.tex 2015/08/03 v3.0.1a (rcs-revision 1.14)
 ))) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Info: Redefining \degres on input line 42.
-LaTeX Info: Redefining \dots on input line 42.
-LaTeX Info: Redefining \up on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Info: Redefining \degres on input line 43.
+LaTeX Info: Redefining \dots on input line 43.
+LaTeX Info: Redefining \up on input line 43.
  ABD: EveryShipout initializing macros
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.13}).
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 44.
+(Font)              <12> on input line 45.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 44.
+(Font)              <8> on input line 45.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 44.
+(Font)              <6> on input line 45.
 (./SOURCES/partie1.tex
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 13.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
@@ -849,27 +849,29 @@ Missing character: There is no ; in font nullfont!
 PGFPlots: reading {SOURCES/swans.csv}
 Missing character: There is no ; in font nullfont!
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 51.
+(Font)              <10.95> on input line 49.
  [2]
-Underfull \hbox (badness 1320) in paragraph at lines 83--84
+Underfull \hbox (badness 1320) in paragraph at lines 81--82
 []\T1/cmr/m/n/10.95 Cette structure de données, qu'on appelle les \T1/cmr/m/it/
 10.95 statistiques suffisantes\T1/cmr/m/n/10.95 , est
  []
 
-[3] [4]) (./SOURCES/partie2.tex [5]) (./SOURCES/partie3.tex
-Underfull \hbox (badness 1215) in paragraph at lines 23--1
-[]\T1/cmr/m/n/10.95 Lorsque l'on demande au Vfdr de classifier un exemple via l
-a méthode
+[3] [4]) (./SOURCES/partie2.tex
+File: SOURCES/image2.eps Graphic file (type eps)
+ <SOURCES/image2.eps> [5]
+Underfull \hbox (badness 1199) in paragraph at lines 26--27
+\T1/cmr/m/n/10.95 qui hérite de \T1/cmtt/m/n/10.95 AttributeStats\T1/cmr/m/n/10
+.95 . Les calculs sont faits dans la classe interne
  []
 
-) (./main.bbl [6]) [7] (./main.aux) ) 
+) (./SOURCES/partie3.tex [6] [7]) (./main.bbl) [8] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 22080 strings out of 494911
- 567055 string characters out of 6179862
+ 22094 strings out of 494911
+ 567322 string characters out of 6179862
  843243 words of memory out of 5000000
- 25000 multiletter control sequences out of 15000+600000
+ 25012 multiletter control sequences out of 15000+600000
  19030 words of font info for 42 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 62i,16n,103p,928b,2231s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,16n,103p,928b,2237s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (7 pages, 51380 bytes).
+Output written on main.dvi (8 pages, 52124 bytes).

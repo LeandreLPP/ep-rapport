@@ -2,8 +2,11 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "./make",
+    "command": "pdflatex",
     // latex main.tex && bibtex main && dvips -o main.ps main.dvi && ps2pdf main.ps
     "isShellCommand": true,
+    "args": [
+        "main"
+    ],
     "showOutput": "always"
 }

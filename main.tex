@@ -12,6 +12,7 @@
 \usepackage{titling}
 \usepackage{exptech}       % Fichier (./exptech.sty) contenant les styles pour 
                            % l'expose technique (ne pas le modifier)
+\usepackage{graphicx}
 
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.13}
@@ -45,7 +46,7 @@
     \thispagestyle{empty}      % Supprime le numéro de page sur la 1re page
 
     \begin{abstract}
-        Notre projet a eu pour but de nous faire implémenter l’algorithme VFDR, en nous servant de l’API de Weka. Cet algorithme est décrit dans le document de recherche intitulé “Learning decision Rules from Data Streams” de João Gama et Petr Kosina.
+        Notre projet avait pour but l'implémenter d'un algorithme de classification incrémentale appelé VFDR, décrit dans \cite{Gama-VFDR}. Pour ce faire, nous nous sommes servis de l’API de Weka, une plate-forme d'apprentissage artificiel qui propose de nombreux algorithmes de classification. 
 
     \end{abstract} 
 
