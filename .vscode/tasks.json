@@ -3,7 +3,25 @@
     // for the documentation about the tasks.json format
     "version": "0.1.0",
     "command": "latex",
+    // latex main.tex && bibtex main && dvips -o main.ps main.dvi && ps2pdf main.ps
     "isShellCommand": true,
-    "args": ["-interaction=nonstopmode","main.tex"],
+    "args": [
+        "-interaction=nonstopmode",
+        "main.tex",
+        "latex",
+        "main.tex",
+        "&&",
+        "bibtex",
+        "main",
+        ">/dev/null",
+        "&&",
+        "dvips",
+        "-o",
+        "main.ps",
+        "main.dvi",
+        "&&",
+        "ps2pdf",
+        "main.ps"
+    ],
     "showOutput": "always"
 }
