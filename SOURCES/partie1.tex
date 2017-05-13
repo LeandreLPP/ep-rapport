@@ -2,27 +2,58 @@
 
     \subsection{Notions d'apprentissage artificiel}
 
-        Pour introduire les notions principales nécessaires à la compréhension du travail accompli, nous allons prendre un exemple qui nous servira de fil directeur : l’exemple classique de la différentiation entre les oies et les cygnes. La question posée est la suivante : “Comment un programme peut-il différencier ces deux oiseaux ?”.
+        Pour introduire les notions principales nécessaires à la compréhension du travail accompli, nous allons prendre un exemple qui nous servira de fil directeur : l’exemple classique de la différentiation entre les oies et les cygnes. La question posée est la suivante : «~Comment un programme peut-il différencier ces deux oiseaux~?~».
 
         \subsubsection{Règles de décisions}
 
-            La classification est une tâche qui consiste à attribuer une étiquette à un individu donné en entrée. Notre exemple des oiseaux est un exemple de classification: à partir de données sur un oiseau, on doit déterminer si c'est une oie ou un cygne. Dans les algorithmes qui apprennent des règles, on base la décision d'attribuer une étiquette particulière à l'individu sur la validation de certaines "règles," c'est à dire la réalisation simultanée d'une ou plusieurs conditions sur les données qui décrivent l'individu à classifier.
+            La classification est une tâche qui consiste à attribuer une étiquette (qu'on appelle la \emph{classe}) à un individu donné en entrée. Notre exemple des oiseaux est un exemple de classification: à partir de données sur un oiseau, on doit déterminer si c'est une oie ou un cygne. Dans les algorithmes qui apprennent des règles, on base la décision d'attribuer une étiquette particulière à l'individu sur la validation de certaines «~règles,~», c'est-à-dire la réalisation simultanée d'une ou plusieurs conditions sur les données qui décrivent l'individu à classifier.
 
-            Les données qui décrivent chaque individu sont les valeurs associées à des caractéristiques mesurables de l'individu, qu'on appelle des \emph{attributs}. Par exemple, pour nos oiseaux, la taille en centimètre est un attribut numérique (sa valeur est un nombre) et la couleur du plumage est un attribut nominal (il prend ses valeurs dans un ensemble fini, par exemple "clair", "moyen" ou "sombre"). Les attributs nominaux et numériques sont les deux types de données que notre algorithme supporte.
+            Les données qui décrivent chaque individu sont les valeurs associées à des caractéristiques mesurables de l'individu, qu'on appelle des \emph{attributs}. Par exemple, pour nos oiseaux, la taille en centimètre est un attribut numérique (sa valeur est un nombre) et la couleur du plumage est un attribut nominal (il prend ses valeurs dans un ensemble fini, par exemple «~clair~», «~moyen~» ou «~sombre~»). Les attributs nominaux et numériques sont les deux types de données que notre algorithme supporte.
 
             Les règles qui nous permettent de prendre une décision de classification se présentent sous la forme de conjonctions de conditions sur les attributs de l'individu à classifier. On appelle ces conditions des \emph{littéraux} (ou \emph{antécédents}). Sur des attributs numériques, on compare la valeur avec des valeurs seuils, ainsi un antécédent numérique pourrait être \antd{taille > 50cm}. Les valeurs des attributs nominaux ne sont pas ordonnées, les antécédents nominaux sont donc de la forme \antd{plumage = clair}.
 
-            Une règle possible pour classifier les oiseaux est « Si plumage = "clair" et taille > 80, alors classe = "cygne". » On voit donc que si les conditions de la règle sont réunies, on prend une décision de classification. Le but d'un algorithme de classification va être de consituer un ensemble de règles qui décrive au mieux les individus déjà observés pour avoir une estimation de la classe d'un nouvel individu à classifier. C'est le principe simplifié de l'apprentissage de règles.
+            Une règle possible pour classifier les oiseaux est « Si \antd{plumage = "clair"} et \antd{taille > 140}, alors \antd{classe = "cygne"}. » Lorsqu'on tente de classifier un individu qui n'a pas d'étiquette, on lui attribue donc la classe "cygne" s'il vérifie les conditions de la règle. Si c'est le cas, on dit qu'il est \emph{couvert} par la règle.
 
-        \subsubsection{Apprentissage}
+            Exprimer une règle comme “Si [suite de littéraux] alors [classe]” est en fait une simplification du fonctionnement des règles de décision utilisées par VFDR. En réalité, nos règles stockent, pour chaque classe, le nombre d’individus couverts appartenant à cette classe. Lorsqu’un individu non-étiqueté est couvert par une règle, on ne peut donc pas décider immédiatement de sa classe, on utilise pour cela une stratégie de classification (plus d'explications en section \ref{ssec:nondecisional}). 
 
-            L’apprentissage de règles consiste à laisser l’algorithme définir seul les règles de décisions en lui fournissant un ensemble d’apprentissage, constitué d’individus dont la classe est déjà connue. En fournissant un jeu de données d’individus déjà étiquetés à l’algorithme, celui-ci pourrait par exemple répartir les individus sur un diagramme tel que celui-ci : 
 
-            Et en déduire l’ensemble de règles suivant : 
-            « Si plumage = "clair" et taille > 80, alors classe = "cygne"
-            Si plumage = "foncé" et taille > 97, alors classe = "cygne"
-            Si plumage = "noir", alors classe = "oie"
-            Sinon classe = "oie" »
+        \subsubsection{Apprentissage}\label{ssec:apprentissage}
+
+           Le but d'un algorithme de classification est de constituer un ensemble de règles qui décrive au mieux les individus déjà observés pour avoir une estimation de la classe d'un nouvel individu à classifier. Pour entraîner un tel algorithme, c'est-à-dire pour qu'il construise un modèle pertinent, on lui fournit un \emph{échantillon d'apprentissage} constitué d'individus déjà étiquetés. Pour notre exemple des cygnes et des oies, on peut représenter un échantillon d'apprentissage sur un diagramme comme celui présenté en figure \ref{fig:example}. À partir de ces données, il se dégage que la plupart des oiseaux au plumage clair sont des cygnes, et tous les oiseaux au plumage sombre sont des oies. De plus, les cygnes sont plus grands que les oies en général. En conséquence, un ensemble de règles à peu près perti pourrait être:
+            \begin{itemize}
+                \item Si \antd{plumage = "clair"} et \antd{taille > 140}, alors \antd{classe = "cygne"};
+                \item Si \antd{plumage = "moyen"} et \antd{taille > 170}, alors \antd{classe = "cygne"};
+                \item Si \antd{plumage = "sombre"}, alors \antd{classe = "oie"};
+                \item Sinon \antd{classe = "oie"}.
+            \end{itemize}
+            \begin{figure}\centering
+                \begin{tikzpicture}
+                    \begin{axis}[%
+                     %   view={0}{90},
+                        %width=\pdfw,
+                        %height=\pdfh,
+                        scale only axis,
+                        xlabel={\texttt{Taille (cm)}},
+                        ytick={0,1,2},
+                        yticklabels={clair,moyen,sombre},
+                        ylabel={\texttt{Plumage}},
+                        cycle list name=black white,
+                    %    xmajorticks=false,
+                        ymajorgrids,]
+                  %      legend style={at={(0.97,0.03)},anchor=south east,nodes=right}]
+                       \addplot table [scatter, only marks,header=false,col sep=comma] {SOURCES/geese.csv};
+
+                        \addlegendentry{Oies};
+
+                        \addplot table [scatter, only marks, header=false,col sep=comma] {SOURCES/swans.csv};
+
+                        \addlegendentry{Cygnes};
+                    \end{axis}
+                \end{tikzpicture}
+                \caption{Exemple d'échantillon d'apprentissage à deux attributs : \texttt{Plumage} est nominal, \texttt{Taille} est numérique.}
+                \label{fig:example}
+            \end{figure}
+
 
 
         \subsubsection{Incrémentalité}
@@ -37,13 +68,13 @@
 
     \subsection{Présentation de VFDR}
 
-        L’algorithme VFDR, sigle de "Very Fast Decision Rules," est l’algorithme d’apprentissage incrémental de règles qui nous intéressera ici. Nous allons dans ce chapitre décrire le fonctionnement de cet algorithme.
+        L’algorithme VFDR, sigle de «~Very Fast Decision Rules,~» est l’algorithme d’apprentissage incrémental de règles qui nous intéressera ici. Nous allons dans ce chapitre décrire le fonctionnement de cet algorithme.
 
         \subsubsection{Principe}
 
-            L’algorithme commence avec un ensemble vide de règles et une règle par défaut. Cette règle, ne comprenant aucun littéral, pourrait être exprimé par “Sinon …” comme dans l’exemple d’ensemble de règle ci-dessus. A chaque règle est associée une structure de donnée permettant de calculer les statistiques nécessaire pour le traitement de ladite règle.
+            L’algorithme commence avec un ensemble vide de règles et une règle par défaut. Cette règle, ne comprenant aucun littéral, couvre tous les individus qui ne sont couverts par aucune autre règle. On peut l'exprimer par «~Sinon...~» comme dans l'exemple d’ensemble de règles de la section \ref{ssec:apprentissage}. À chaque règle est associée une structure de donnée permettant de calculer les statistiques nécessaire pour le traitement de ladite règle.
 
-            Si tous les littéraux d’une règle sont vrai pour un individu donné, on dit qu’il est \emph{couvert} par cette règle. Lorsque l’algorithme reçoit un individu étiqueté, il tente de le faire correspondre à chaque règle de l’ensemble de règles créés ou à la règle par défaut. Si la règle qui le couvre contient suffisamment d’individus, elle est étendue pour améliorer sa précision. L’extension d’une règle consiste à lui rajouter un littéral. Lorsque c’est la règle vide qui devrait être étendue, une nouvelle règle est créée à la place. Ainsi, l’algorithme crée l’ensemble de règle qui servira à classifier les individus non étiquetés.
+            Lorsque l’algorithme reçoit un individu étiqueté, il tente de le faire correspondre à chaque règle de l’ensemble de règles créés ou à la règle par défaut. Si la règle qui le couvre contient suffisamment d’individus, elle est étendue pour améliorer sa précision. L’extension d’une règle consiste à lui rajouter un littéral. Lorsque c’est la règle vide qui devrait être étendue, une nouvelle règle est créée à la place. Ainsi, l’algorithme construit l’ensemble de règle qui servira à classifier les individus non étiquetés.
 
         \subsubsection{Description des statistiques}
 
@@ -52,11 +83,57 @@
                 \item Un entier, correspondant au nombre d’individus couverts par la règle.
                 \item Un vecteur d’entier, comprenant le nombre d’occurence de chaque classe parmis les individus couverts.
                 \item Une matrice, représentant le nombre d'occurrence de chaque valeur des attributs nominaux pour chaque classe.
-                \item Un estimateur gaussien, permettant de calculer pour chaque attribut numérique la probabilité de rencontrer une valeur supérieur à telle ou telle valeur déjà rencontrée, par classe.
+                \item Un estimateur gaussien par classe, permettant de calculer pour chaque attribut numérique la probabilité de rencontrer une valeur supérieur à telle ou telle valeur déjà rencontrée.
             \end{itemize}
 
+            Prenons l’exemple des oies et des cygnes. Nous lançons l'algorithme sur les sept individus suivants :
+
+             \begin{table}[h]\centering
+                \begin{tabular}{|ccc|}\hline
+                    Classe&Plumage&Taille (cm)\\ \hline
+                	Oie & sombre & 76 \\
+                	Oie & moyen & 82 \\
+                	Oie & moyen & 78 \\
+                	Cygne & moyen & 112 \\
+                	Cygne & clair & 90 \\
+                	Cygne & moyen & 98 \\
+                	Cygne & clair & 86 \\ \hline
+                \end{tabular}
+            \end{table}
+
+            Comme notre ensemble de règle est vide, ces individus sont couverts uniquement par la règle vide, qui ne contient pas encore assez d’individus pour s'étendue. La structure de donnée de la règle vide contiendrait donc les valeur suivantes :
+            \begin{itemize}
+                \item Nombre d’individus couverts : 7
+                \item Distribution de classe : \texttt{["oie": 3, "cygne": 4]}
+                \item Matrice de valeurs nominales : %\\
+                    
+                    \begin{table}[h]\centering
+                        \begin{tabular}{|l|cc|}\hline
+                            & \antd{classe = oie} & \antd{classe = cygne}\\ \hline
+                        \antd{plumage = sombre}  & 1 & 0 \\
+                        \antd{plumage = moyen}   & 2 & 2 \\
+                        \antd{plumage = clair}   & 0 & 2 \\\hline
+                        \end{tabular}
+                    \end{table}%\vspace{4mm}
+                
+                \item Les estimateurs gaussiens de chaque classe seraient ajustés aux valeurs de taille déjà rencontrées.
+            \end{itemize}
+
+            Ainsi, à chaque ajout d’un individu couvert par la règle, il suffit de mettre à jour les statistiques pour garder en mémoire les informations importantes. L’ensemble de règle construit par VFDR peut être \emph{ordonné} ou désordonné. Dans le premier cas, seule la première règle qui couvre l’individu est mise à jour. Dans le second cas, toutes les règles couvrant l’individu sont mises à jour et éventuellement étendues. Cependant, dans les deux cas de figure, la règle par défaut n’est mise à jour que si aucune autre règle ne couvre l’individu.
+
+            Quand une règle atteint le nombre d’individus définis précédemment, l’algorithme procède à l’extension de cette règle.
+
         \subsubsection{Expansion d'une règle}
-        \subsubsection{Concept de règle non-décisionnelle}
+        
+        \subsubsection{Stratégies de classification}\label{ssec:nondecisional}
+            On a déjà dit que chaque règle stocke la distribution de classe des individus qu'elle couvre. La classification d'un individu n'est donc pas automatique lorsqu'une règle le couvre, mais obéit à une \emph{stratégie de classifications} qu'on peut paramétrer.
+
+            La stratégie de classification la plus simple consiste à classer l’individu non-étiqueté dans la classe la plus représentée par la règle le couvrant, quelle que soit la valeur de ses attributs. Mais cette stratégie ignore un bon nombre d’informations qui sont mises à disposition par l’algorithme. Une autre stratégie pourrait être de maximiser la probabilité de bon classement en utilisant l’ensemble des attributs de l’individu, par la méthode de «~Bayes naïf~».\cite{Gama-VFDR}
+            
+            Reprenons l’exemple de règle par défaut de la partie “Description des statistiques”, dans le cas où un individu non étiqueté de couleur Sombre et mesurant 76 centimètres était traité par l’algorithme. Si la première stratégie de classification était utilisée, l’individu serait étiqueté comme étant de la classe «~oie~» car c’est la classe majoritaire couverte par la règle. Cependant, en utilisant la stratégie naïve de Bayes, qui s'intéresse aux valeur de ses attributs, on remarque qu’il est plus probable que l’individu soit en réalité de la classe «~cygne~». 
+
+            En outre, les ensembles de règles utilisés dans VFDR peuvent être soit ordonnés, soit non-ordonnés. La différence est que dans un ensemble de règle ordonné, seule la première règle couvrant l’individu décide de sa classification. Dans le cas d’un ensemble de règle non-ordonné, toutes les règles couvrant l’individu procèdent à un vote pondéré pour classifier l’individu.
+
 
 
 
