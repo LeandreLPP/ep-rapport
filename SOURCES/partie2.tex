@@ -33,13 +33,14 @@
 
     \subsection{Limites de cette implémentation}
 
-        Notre implémentation a l'avantage d'avoir une empreinte mémoire réduite, grâce au fait qu'elle ne mémorise aucun exemple. Ceci lui permet d'apprendre sur de très grand jeux de données sans craindre une consommation d'espace trop importante. Seul le nombre de règles influe sur l'empreinte mémoire du programme.
+        La principale limite de l’algorithme réside sur les types de données qu’il peut gérer. Ainsi, l’attribut cible (la classe) doit forcément être un attribut nominal.
 
-        Le principal le plus problématique est la détermination d’antécédent pour étendre une règle. Il faudrait regarder la complexité exacte des opérations. Faire remarquer qu’on met en place un seuil minimal avant d’étendre la règle, justement à cause du temps de calcul élevé.
-        
-        Autres limites de l’algo : les types de données gérés. La classe est forcément un attribut nominal.
-        
-        L’algorithme ne gère pas le concept drift (une variante de l’algorithme qui le gère existe, mais nous ne l’avons pas implémentée dans ce projet).
+        Bien que l’algorithme VFDR ne requière pas un stockage en mémoire des exemples (car seules les statistiques suffisantes sont conservées), un grand ensemble de significative du nombre de règles augmenterait l'empreinte mémoire du programme.
+
+        À propos de la complexité en temps, le temps de traitement d'un individu est suffisamment bas pour qu'il ne soit pas un problème. Cependant la routine d'expansion de règle est très coûteuse, et constitue le principal goulot d'étranglement pour le temps d'exécution du programme. Pour cette raison, nous avons défini une borne inférieure au nombre d'exemples que l'algorithme doit voir passer avant de tenter l'expansion. Cette limite est configurable et doit être adaptée au nombre d'exemples de l'échantillon d'apprentissage.
+
+        Enfin, l’algorithme ne peut pas gérer de changement de la fonction cible (ce qu'on appelle la \emph{dérive de concept}). Il existe une variante de l'algorithme qui peut s'y adapter, mais son implémentation était hors du champ de cette étude pratique.
+
 
     \subsection{Comparaison avec un autre algorithme: VFDT}
 
