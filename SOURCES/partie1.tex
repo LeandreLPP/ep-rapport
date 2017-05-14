@@ -6,20 +6,20 @@
 
         \subsubsection{Règles de décisions}
 
-            La classification est une tâche qui consiste à attribuer une étiquette (qu'on appelle la \emph{classe}) à un individu qui n'en possède pas. Notre exemple des oiseaux est un exemple de classification: à partir de données sur un oiseau, on doit déterminer si c'est une oie ou un cygne. Dans les algorithmes qui apprennent des règles, on base la décision d'attribuer une étiquette particulière à l'individu sur la validation de certaines «~règles,~» c'est-à-dire la validation simultanée d'une ou plusieurs conditions sur les données qui décrivent l'individu à classifier.
+            La classification est une tâche qui consiste à attribuer une étiquette (qu'on appelle la \emph{classe}) à un individu qui n'en possède pas. Notre exemple des oiseaux est un exemple de classification: à partir de données sur un oiseau, on doit déterminer si c'est une oie ou un cygne. Dans les algorithmes qui utilisent des règles, on base la décision d'attribuer une étiquette particulière à l'individu sur la validation de certaines «~règles,~» c'est-à-dire la validation simultanée d'une ou plusieurs conditions sur les données qui décrivent l'individu à classifier.
 
-            Les données qui décrivent chaque individu sont les valeurs associées à des caractéristiques mesurables de l'individu, qu'on appelle des \emph{attributs}. Par exemple, pour nos oiseaux, la taille en centimètre est un attribut numérique (sa valeur est un nombre) et la couleur du plumage est un attribut nominal (il prend ses valeurs dans un ensemble fini, par exemple «~clair~», «~moyen~» ou «~sombre~»). Les attributs nominaux et numériques sont les deux types de données que notre algorithme supporte.
+            Les données qui décrivent chaque individu sont les valeurs associées à des caractéristiques mesurables de l'individu, qu'on appelle des \emph{attributs}. Par exemple, pour nos oiseaux, la taille en centimètre est un attribut numérique (il prend ses valeurs dans un ensemble ordonné et potentiellement infini) et la couleur du plumage est un attribut nominal (il prend ses valeurs dans un ensemble fini et non-ordonné, par exemple «~clair~», «~moyen~» ou «~sombre~»). Les attributs nominaux et numériques sont les deux types de données que notre algorithme supporte.
 
-            Les règles qui nous permettent de prendre une décision de classification se présentent sous la forme de conjonctions de conditions sur les attributs de l'individu à classifier. On appelle ces conditions des \emph{littéraux} (ou \emph{antécédents}). Sur des attributs numériques, on compare la valeur avec des valeurs seuils, ainsi un antécédent numérique pourrait être \antd{taille > 50cm}. Les valeurs des attributs nominaux ne sont pas ordonnées, les antécédents nominaux sont donc de la forme \antd{plumage = clair}.
+            Les règles qui nous permettent de prendre une décision de classification se présentent sous la forme de conjonctions de conditions sur les attributs de l'individu à classifier. On appelle ces conditions des \emph{littéraux} (ou \emph{antécédents}). Pour des attributs numériques, on compare la valeur avec des valeurs seuils, ainsi un antécédent numérique pourrait être \antd{taille > 50cm}. Les valeurs des attributs nominaux n'étant pas ordonnées, les antécédents nominaux sont de la forme \antd{plumage = clair}.
 
             Une règle possible pour classifier les oiseaux est « Si \antd{plumage = "clair"} et \antd{taille > 140}, alors \antd{classe = "cygne"}. » Lorsqu'on tente de classifier un individu qui n'a pas d'étiquette, on lui attribue donc la classe "cygne" s'il vérifie les conditions de la règle. Si c'est le cas, on dit qu'il est \emph{couvert} par la règle.
 
-            Exprimer une règle comme «~Si <suite de littéraux> alors <classe>~» est en fait une simplification du fonctionnement des règles de décision utilisées par VFDR. En réalité, nos règles stockent, pour chaque classe, le nombre d’individus couverts appartenant à cette classe. Lorsqu’un individu non-étiqueté est couvert par une règle, on ne peut donc pas décider immédiatement de sa classe, on utilise pour cela une stratégie de classification (plus d'explications en section \ref{ssec:nondecisional}). 
+            Exprimer une règle sous la forme «~Si <suite de littéraux> alors <classe>~» est en fait une simplification du fonctionnement des règles de décision utilisées par VFDR. En réalité, nos règles stockent, pour chaque classe, des statistiques sur les individus couverts appartenant à cette classe. Lorsqu’un individu non-étiqueté est couvert par une règle, on ne peut donc pas décider immédiatement de sa classe, on utilise pour cela une stratégie de classification (plus d'explications en section \ref{ssec:nondecisional}).
 
 
         \subsubsection{Apprentissage}\label{ssec:apprentissage}
 
-           Le but d'un algorithme de classification est de constituer un ensemble de règles qui décrive au mieux les individus déjà observés pour avoir une estimation de la classe d'un nouvel individu à classifier. Pour entraîner un tel algorithme, c'est-à-dire pour qu'il construise un modèle pertinent, on lui fournit un \emph{échantillon d'apprentissage} constitué d'individus déjà étiquetés. Pour notre exemple des cygnes et des oies, on peut représenter un échantillon d'apprentissage sur un diagramme comme celui présenté en figure \ref{fig:example}. À partir de ces données, il se dégage que la plupart des oiseaux au plumage clair sont des cygnes, et tous les oiseaux au plumage sombre sont des oies. De plus, les cygnes sont plus grands que les oies en général. En conséquence, un ensemble de règles à peu près perti pourrait être:
+           Le but d'un algorithme d'apprentissage est de constituer un ensemble de règles qui décrivent au mieux les individus déjà observés pour avoir une estimation de la classe d'un nouvel individu à classifier. Pour entraîner un tel algorithme, c'est-à-dire pour qu'il construise un modèle pertinent, on lui fournit un \emph{échantillon d'apprentissage} constitué d'individus déjà étiquetés. Pour notre exemple des cygnes et des oies, on peut représenter un échantillon d'apprentissage sur un diagramme comme celui présenté en figure \ref{fig:example}. À partir de ces données, il se dégage que la plupart des oiseaux au plumage clair sont des cygnes, et tous les oiseaux au plumage sombre sont des oies. De plus, les cygnes sont plus grands que les oies en général. En conséquence, un ensemble de règles à peu près pertinent pourrait être:
             \begin{itemize}
                 \item Si \antd{plumage = "clair"} et \antd{taille > 140}, alors \antd{classe = "cygne"};
                 \item Si \antd{plumage = "moyen"} et \antd{taille > 170}, alors \antd{classe = "cygne"};
@@ -72,23 +72,23 @@
 
             L’algorithme commence avec un ensemble vide de règles et une règle par défaut. Cette règle, ne comprenant aucun littéral, couvre tous les individus qui ne sont couverts par aucune autre règle. On peut l'exprimer par «~Sinon...~» comme dans l'exemple d’ensemble de règles de la section \ref{ssec:apprentissage}. À chaque règle est associée une structure de donnée permettant de calculer les statistiques nécessaire pour le traitement de ladite règle.
 
-            Lorsque l’algorithme reçoit un individu étiqueté, il tente de le faire correspondre à chaque règle de l’ensemble de règles créés ou à la règle par défaut. Si la règle qui le couvre contient suffisamment d’individus, elle est étendue pour améliorer sa précision. L’extension d’une règle consiste à lui rajouter un littéral. Lorsque c’est la règle vide qui devrait être étendue, une nouvelle règle est créée à la place. Ainsi, l’algorithme construit l’ensemble de règle qui servira à classifier les individus non étiquetés.
+            Lorsque l’algorithme reçoit un individu étiqueté, il tente de le faire correspondre à chaque règle de l’ensemble de règles ou à la règle par défaut. Si la règle qui le couvre contient suffisamment d’individus, elle est étendue pour améliorer sa précision. L’extension d’une règle consiste à lui rajouter un littéral. Lorsque c’est la règle vide qui devrait être étendue, une nouvelle règle est créée à la place. Ainsi, l’algorithme construit l’ensemble de règle qui servira à classifier les individus non étiquetés.
 
         \subsection{Statistiques suffisantes}\label{ssec:stats}
 
             Pour ne pas saturer la mémoire, l’algorithme ne mémorise pas l’ensemble des individus traités, mais utilise une structure de donnée contenant des statistiques sur les individus couverts par la règle.
 
-            Cette structure de données, qu’on appelle les \emph{statistiques suffisantes}, est constituée de :
+            Cette structure de données, que l’on appelle les \emph{statistiques suffisantes}, est constituée de :
             \begin{itemize}
-                \item Un entier donnant le nombre d’individus couverts par la règle;
-                \item Un vecteur d’entiers, qui stocke le nombre d’occurence de chaque classe parmis les individus couverts (distribution de classe);
-                \item Une matrice représentant le nombre d'occurrence de chaque valeur des attributs nominaux pour chaque classe;
+                \item Un entier correspondant au nombre d’individus couverts par la règle;
+                \item Un vecteur d’entiers stockant le nombre d’occurence de chaque classe parmis les individus couverts (distribution de classe);
+                \item Une matrice représentant le nombre d'occurrences de chaque valeur des attributs nominaux pour chaque classe;
                 \item Un estimateur gaussien par classe, permettant de calculer pour chaque attribut numérique la probabilité de rencontrer une valeur supérieur à une valeur déjà rencontrée.
             \end{itemize}
 
             Prenons l’exemple des oies et des cygnes. Nous lançons l'algorithme sur les sept individus suivants :
 
-             \begin{table}[h]\centering
+            \begin{table}[h]\centering
                 \begin{tabular}{|ccc|}\hline
                     Classe&Plumage&Taille (cm)\\ \hline
                 	Oie & sombre & 76 \\
@@ -101,7 +101,7 @@
                 \end{tabular}
             \end{table}
 
-            Comme notre ensemble de règle est vide, ces individus sont couverts uniquement par la règle vide, qui ne contient pas encore assez d’individus pour s'étendue. La structure de donnée de la règle vide contiendrait donc les valeur suivantes :
+            Comme notre ensemble de règle est vide, ces individus sont couverts uniquement par la règle vide, car on n'a pas encore rencontré assez d'individus pour créé de nouvelles règles. La structure de donnée de la règle vide contiendrait donc les valeur suivantes :
             \begin{itemize}
                 \item Nombre d’individus couverts : 7
                 \item Distribution de classe : \texttt{["oie": 3, "cygne": 4]}
@@ -121,19 +121,22 @@
 
             Ainsi, à chaque ajout d’un individu couvert par la règle, il suffit de mettre à jour les statistiques pour garder en mémoire les informations importantes. L’ensemble de règle construit par VFDR peut être \emph{ordonné} ou \emph{désordonné}. Dans le premier cas, seule la première règle qui couvre l’individu est mise à jour. Dans le second cas, toutes les règles couvrant l’individu sont mises à jour et éventuellement étendues. Cependant, dans les deux cas de figure, la règle par défaut n’est mise à jour que si \emph{aucune} autre règle ne couvre l’individu.
 
-            Quand une règle atteint le nombre d’individus définis précédemment, l’algorithme procède à l’extension de cette règle.
+            Quand une règle atteint le nombre d’individus définis précédemment, l’algorithme procède à l'expansion de cette règle.
 
         \subsection{Expansion d'une règle}
 
-            Lors de l’expansion d’une règle, on cherche à lui ajouter un littéral de sorte que la distribution de classe de la règle étendue soit la plus pure possible, c’est-à-dire qu’une classe en particulier y soit beaucoup plus représentée. Ceci permet de prendre des décisions plus facilement, puisqu’il y aura une plus forte certitude qu’un individu couvert appartienne à la classe majoritairement représentée. À cet effet, on utilise une mesure de la pureté d’une distribution de classe qu’on appelle l’entropie. Une distribution de classe parfaitement pure aura une entropie nulle, on cherche donc à la minimiser.
+            Lors de l’expansion d’une règle, on cherche à lui ajouter un littéral de sorte que la distribution de classe de la règle étendue soit la plus pure possible, c’est-à-dire qu’une classe en particulier y soit beaucoup plus représentée. Ceci permet de prendre des décisions plus facilement, puisqu’il y aura une plus forte certitude qu’un individu couvert appartienne à la classe majoritairement représentée. À cet effet, on utilise une mesure de la pureté d’une distribution de classe qu’on appelle l’\emph{entropie}. Une distribution de classe parfaitement pure aura une entropie nulle, on cherche donc à la minimiser.
             
+            Pour décider si l'on étend une règle ou pas, on compare la valeur de l'entropie à une limite qu'on appelle la \emph{borne de Hoeffding}. Si la valeur est supérieure à la borne, cela signifie que la règle n'est plus pertinente et on procède alors à l'expansion de la règle dans l'espoir qu'une expansion la fasse gagner en pureté. Dans le cas contraire, on reporte juste l'expansion à plus tard.
+
             Pour étendre une règle, l’algorithme cherche le littéral qui minimise l’entropie de la distribution de classe a priori de la règle étendue. Cela implique de trouver à la fois l’attribut et la valeur sur lequel on va le tester. Parmi tous les attributs qui n’appartiennent à aucun littéral de la règle, on cherche alors la valeur de test qui produira l’entropie la plus faible dans la distribution, qu’on estime grâce aux statistiques qu’on possède sur les attributs (stockées dans les statistiques suffisantes).
 
-            Une fois le meilleur littéral construit, on l’ajoute à la règle et on réinitialise ses statistiques.  Les nouveaux individus couverts par la classe serviront à repeupler ces statistiques jusqu'à la prochaine extension de la règle.
+            Une fois le meilleur littéral construit, on vérifie que le gain de pureté associé à l'expansion de la règle est supérieur à la borne de Hoeffding. Si oui, on l’ajoute à la règle et on réinitialise ses statistiques. Les nouveaux individus couverts par la classe serviront à repeupler ces statistiques jusqu'à la prochaine extension de la règle.
 
         
         \subsection{Stratégies de classification}\label{ssec:nondecisional}
-            On a déjà dit que chaque règle stocke la distribution de classe des individus qu'elle couvre. La classification d'un individu n'est donc pas automatique lorsqu'une règle le couvre, mais obéit à une \emph{stratégie de classifications} qu'on peut paramétrer.
+        
+            On sait que chaque règle stocke la distribution de classe des individus qu'elle couvre. La classification d'un individu n'est donc pas automatique lorsqu'une règle le couvre, mais obéit à une \emph{stratégie de classification} qu'on peut paramétrer.
 
             La stratégie de classification la plus simple consiste à classer l’individu non-étiqueté dans la classe la plus représentée par la règle le couvrant, quelle que soit la valeur de ses attributs. Mais cette stratégie ignore un bon nombre d’informations qui sont mises à disposition par l’algorithme. Une autre stratégie pourrait être de maximiser la probabilité de bon classement en utilisant l’ensemble des attributs de l’individu, par la méthode de «~Bayes naïf~».\cite{Gama-VFDR}
             

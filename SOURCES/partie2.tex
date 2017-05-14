@@ -2,18 +2,21 @@
 
     \subsection{Organisation} 
 
-        Notre objectif pour ce second semestre d’étude pratique était d’implémenter l’algorithme. Nous avons décidé de travailler chacun de notre côté dans un premier temps, car nous ne connaissions pas bien le fonctionnement de Weka, et le travail semblait difficilement sécable. Cette approche nous a effectivement permis de nous familiariser individuellement avec la bibliothèque Weka, et nous avons chacun travaillé sur un début d’implémentation du VFDR.
+        Notre objectif pour ce second semestre d’étude pratique était d’implémenter l’algorithme. Nous avons décidé de travailler chacun de notre côté dans un premier temps, car nous ne connaissions pas suffisamment le fonctionnement de Weka, et le travail semblait difficilement sécable. Cette approche nous a effectivement permis de nous familiariser individuellement avec la bibliothèque Weka, et nous avons chacun travaillé sur un début d’implémentation de VFDR.
 
         Nous nous sommes ensuite réunis pour comparer nos avancées respectives, et nos choix d’implémentation. Nous avons décidé de conserver les choix faits par Clément, qui avait déjà bien avancé dans l’implémentation de l’algorithme. C’est donc la base que nous avons choisie pour terminer le travail du semestre.
 
     \begin{figure}
 
         \includegraphics[width=\textwidth]{SOURCES/image2}
-
+        \caption{Diagramme de classes de notre implémentation}
+        \label{fig:dclass}
     \end{figure}
 
 
     \subsection{Description de l'implémentation}
+
+        Le diagramme de classes en figure \ref{fig:dclass} présente l'architecture de notre implémentation.
 
         \paragraph{Paramétrage} La classe principale de notre programme, nommée \texttt{Vfdr}, implémente plusieurs interfaces de Weka, notamment UpdateableClassifier, qui permet de mettre en avant l’aspect incrémental de l’algorithme. Ces interfaces permettent d'intégrer le programme au GUI de Weka. \texttt{Vfdr} possède des attributs servant d’options de configuration, ainsi qu’une liste de \texttt{VfdrRule}, représentant l’ensemble des règles, et une \texttt{VfdrRule} à part, qui est la règle par défaut.
 
