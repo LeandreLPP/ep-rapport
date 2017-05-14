@@ -7,7 +7,6 @@
         Nous nous sommes ensuite réunis pour comparer nos avancées respectives, et nos choix d’implémentation. Nous avons décidé de conserver les choix faits par Clément, qui avait déjà bien avancé dans l’implémentation de l’algorithme. C’est donc la base que nous avons choisie pour terminer le travail du semestre.
 
     \begin{figure}
-
         \includegraphics[width=\textwidth]{SOURCES/image2}
         \caption{Diagramme de classes de notre implémentation}
         \label{fig:dclass}
@@ -34,9 +33,9 @@
 
     \subsection{Limites de cette implémentation}
 
-        Pas trop de problèmes avec la mémoire, car tous les exemples ne sont pas mémorisés, on conserve des statistiques suffisantes. Il y a seulement une augmentation possible du nombre de règles, qui prendraient plus de place mémoire.
+        Notre implémentation a l'avantage d'avoir une empreinte mémoire réduite, grâce au fait qu'elle ne mémorise aucun exemple. Ceci lui permet d'apprendre sur de très grand jeux de données sans craindre une consommation d'espace trop importante. Seul le nombre de règles influe sur l'empreinte mémoire du programme.
 
-        Au niveau de la complexité en temps : le plus problématique est la détermination d’antécédent pour étendre une règle. Il faudrait regarder la complexité exacte des opérations. Faire remarquer qu’on met en place un seuil minimal avant d’étendre la règle, justement à cause du temps de calcul élevé.
+        Le principal le plus problématique est la détermination d’antécédent pour étendre une règle. Il faudrait regarder la complexité exacte des opérations. Faire remarquer qu’on met en place un seuil minimal avant d’étendre la règle, justement à cause du temps de calcul élevé.
         
         Autres limites de l’algo : les types de données gérés. La classe est forcément un attribut nominal.
         
@@ -44,6 +43,6 @@
 
     \subsection{Comparaison avec un autre algorithme: VFDT}
 
-        Dans le domaine du machine learning, surtout dans les tâches de classification les arbres de décisions (tels que VFDT) sont très largement utilisés. Ils ont l’avantage d’être lisibles avec une structure hiérarchique où les  feuilles de l’arbre représentent les différentes décisions possibles et sont atteints en fonction des décisions prises à chaque étape. Ils ont également de bonnes capacités prédictives. Par ailleurs, tout arbre de décision peut être facilement transformé en une collection de règles. Chaque règle correspond au chemin de la racine à une feuille, et il y a autant de règles que de feuilles. Ce processus génère un ensemble  de règles avec la même complexité qu’un arbre de décision. 
-
-        Le VFDT (Very Fast Decision Tree) est l’un des algorithmes de classification incrémentale les plus connus. Cet algorithme peut automatiquement s’adapter à l’évolution des données au cours du temps. Par ailleurs lorsque les données changent au cours du temps, cette adaptation devient de plus en plus lente et pénible pour un arbre de décision dans la mesure où dans certains cas il faudrait reconstruire le classifieur à partir de zéro ou exécuter un changement complexe dans la structure de l’arbre. Par contre, un algorithme comme VFDR a une capacité à s’adapter beaucoup plus facilement avec les changements que peuvent subir les données. Ils ont l’avantage d’avoir des règles individuelles qui peuvent être gérées de manière indépendante. L’ensemble de règles peut être donc plus facilement modifié : les règles obsolètes peuvent être tout simplement supprimées. 
+        Pour les tâches de classification, les arbres de décision sont plus largement utilisés que les règles de décision. Dans un arbre de décision, chaque noeud représente un choix entre deux possibilités, qui dépend d'une condition booléenne sur les attributs, comme les littéraux dans les règles de décision. Les feuilles contiennent une distribution de classe recensant les individus qui vérifient toutes les conditions rencontrées sur le chemin depuis la racine, et ce sont elles qui prennent les décisions de classification. Cette structure hiérarchique les rend très lisibles pour un humain, et ils ont également de bonnes capacités prédictives. Un autre avantage est le fait qu'ils partitionnent entièrement l'espace des individus: tout individu est garanti d'atteindre une feuille. Cependant leur structure rigide les rend aussi difficilement réorganisable au fil du temps, contrairement aux ensembles de règles construits par des algorithmes comme VFDR.
+        
+        Le VFDT (Very Fast Decision Tree) est un algorithme de classification incrémentale utilisant des arbres de décision. Contrairement à VFDR, cet algorithme peut s’adapter à l’évolution du concept cible au cours du temps (ce qu'on appelle la \emph{dérive de concept}). Par contre, grâce aux propriétés des règles de décision, VFDR peut adapter son modèle au fil du temps de façon beaucoup moins coûteuse, ce qui le rend plus robuste pour l'apprentissage sur de grands jeux de données.
