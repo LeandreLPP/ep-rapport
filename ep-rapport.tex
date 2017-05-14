@@ -1,0 +1,47 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{lipsum}
+\usepackage{titling}
+\usepackage{exptech}       
+
+\usepackage{graphicx}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+
+
+
+
+
+\title{ \textbf{Apprentissage incrémental de règles de décision} }
+\markright{\thetitle} 
+\author{Bassirou \textsc{Seye}, Clément \textsc{Fournier}, \\
+        Léandre \textsc{Le Polles -{}- Potin}, Pierre \textsc{Testart} \\
+        \\
+        Encadreur : Laurence \textsc{Rozé}}
+
+\date{}                    
+
+\def\antd#1{\texttt{#1}}
+
+\begin{document}          
+
+    \maketitle                 
+    \thispagestyle{empty}      
+
+    \begin{abstract}
+
+        Notre projet avait pour but d'implémenter un algorithme d'apprentissage incrémental de règles de décision appelé VFDR, décrit dans \cite{Gama-VFDR}. Pour ce faire, nous nous sommes servis de l’API de Weka, une plate-forme d'apprentissage artificiel qui propose de nombreux algorithmes d'apprentissage et de classification. 
+        
+    \end{abstract} 
+
+    \input{./src/partie1.tex}
+    \input{./src/partie2.tex}
+    \input{./src/partie3.tex}
+    \input{./src/conclusion.tex}
+
+    \nocite{*}
+    \bibliography{biblio}
+
+
+\end{document}

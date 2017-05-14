@@ -1,0 +1,86 @@
+\section{Présentation de VFDR}
+
+        L’algorithme VFDR, sigle de «~Very Fast Decision Rules,~» est l’algorithme d’apprentissage incrémental de règles qui nous intéressera ici. Nous allons dans ce chapitre décrire le fonctionnement de cet algorithme.
+
+        \subsection{Principe}
+
+            L’algorithme commence avec un ensemble vide de règles et une règle par défaut. Cette règle, ne comprenant aucun littéral, couvre tous les individus qui ne sont couverts par aucune autre règle. On peut l'exprimer par «~Sinon...~» comme dans l'exemple d’ensemble de règles de la section \ref{ssec:apprentissage}. À chaque règle est associée une structure de donnée permettant de calculer les statistiques nécessaire pour le traitement de ladite règle.
+
+            Lorsque l’algorithme reçoit un individu étiqueté, il tente de le faire correspondre à chaque règle de l’ensemble de règles ou à la règle par défaut. Si la règle qui le couvre contient suffisamment d’individus, elle est étendue pour améliorer sa précision. L’extension d’une règle consiste à lui rajouter un littéral. Lorsque c’est la règle vide qui devrait être étendue, une nouvelle règle est créée à la place. Ainsi, l’algorithme construit l’ensemble de règle qui servira à classifier les individus non étiquetés.
+
+        \subsection{Statistiques suffisantes}\label{ssec:stats}
+
+            Pour ne pas saturer la mémoire, l’algorithme ne mémorise pas l’ensemble des individus traités, mais utilise une structure de donnée contenant des statistiques sur les individus couverts par la règle.
+
+            Cette structure de données, que l’on appelle les \emph{statistiques suffisantes}, est constituée de :
+            \begin{itemize}
+                \item Un entier correspondant au nombre d’individus couverts par la règle;
+                \item Un vecteur d’entiers stockant le nombre d’occurence de chaque classe parmis les individus couverts (distribution de classe);
+                \item Une matrice représentant le nombre d'occurrences de chaque valeur des attributs nominaux pour chaque classe;
+                \item Un estimateur gaussien par classe, permettant de calculer pour chaque attribut numérique la probabilité de rencontrer une valeur supérieur à une valeur déjà rencontrée.
+            \end{itemize}
+
+            Prenons l’exemple des oies et des cygnes. Nous lançons l'algorithme sur les sept individus suivants :
+
+            \begin{table}[h]\centering
+                \begin{tabular}{|ccc|}\hline
+                    Classe&Plumage&Taille (cm)\\ \hline
+                	Oie & sombre & 76 \\
+                	Oie & moyen & 82 \\
+                	Oie & moyen & 78 \\
+                	Cygne & moyen & 112 \\
+                	Cygne & clair & 90 \\
+                	Cygne & moyen & 98 \\
+                	Cygne & clair & 86 \\ \hline
+                \end{tabular}
+            \end{table}
+
+            Comme notre ensemble de règle est vide, ces individus sont couverts uniquement par la règle vide, car on n'a pas encore rencontré assez d'individus pour créé de nouvelles règles. La structure de donnée de la règle vide contiendrait donc les valeur suivantes :
+            \begin{itemize}
+                \item Nombre d’individus couverts : 7
+                \item Distribution de classe : \texttt{["oie": 3, "cygne": 4]}
+                \item Matrice de valeurs nominales : %\\
+                    
+                    \begin{table}[h]\centering
+                        \begin{tabular}{|l|cc|}\hline
+                            & \antd{classe = oie} & \antd{classe = cygne}\\ \hline
+                        \antd{plumage = sombre}  & 1 & 0 \\
+                        \antd{plumage = moyen}   & 2 & 2 \\
+                        \antd{plumage = clair}   & 0 & 2 \\\hline
+                        \end{tabular}
+                    \end{table}%\vspace{4mm}
+                
+                \item Les estimateurs gaussiens de chaque classe seraient ajustés aux valeurs de taille déjà rencontrées.
+            \end{itemize}
+
+            Ainsi, à chaque ajout d’un individu couvert par la règle, il suffit de mettre à jour les statistiques pour garder en mémoire les informations importantes. L’ensemble de règle construit par VFDR peut être \emph{ordonné} ou \emph{désordonné}. Dans le premier cas, seule la première règle qui couvre l’individu est mise à jour. Dans le second cas, toutes les règles couvrant l’individu sont mises à jour et éventuellement étendues. Cependant, dans les deux cas de figure, la règle par défaut n’est mise à jour que si \emph{aucune} autre règle ne couvre l’individu.
+
+            Quand une règle atteint le nombre d’individus définis précédemment, l’algorithme procède à l'expansion de cette règle.
+
+        \subsection{Expansion d'une règle}
+
+            Lors de l’expansion d’une règle, on cherche à lui ajouter un littéral de sorte que la distribution de classe de la règle étendue soit la plus pure possible, c’est-à-dire qu’une classe en particulier y soit beaucoup plus représentée. Ceci permet de prendre des décisions plus facilement, puisqu’il y aura une plus forte certitude qu’un individu couvert appartienne à la classe majoritairement représentée. À cet effet, on utilise une mesure de la pureté d’une distribution de classe qu’on appelle l’\emph{entropie}. Une distribution de classe parfaitement pure aura une entropie nulle, on cherche donc à la minimiser.
+            
+            Pour décider si l'on étend une règle ou pas, on compare la valeur de l'entropie à une limite qu'on appelle la \emph{borne de Hoeffding}. Si la valeur est supérieure à la borne, cela signifie que la règle n'est plus pertinente et on procède alors à l'expansion de la règle dans l'espoir qu'une expansion la fasse gagner en pureté. Dans le cas contraire, on reporte juste l'expansion à plus tard.
+
+            Pour étendre une règle, l’algorithme cherche le littéral qui minimise l’entropie de la distribution de classe a priori de la règle étendue. Cela implique de trouver à la fois l’attribut et la valeur sur lequel on va le tester. Parmi tous les attributs qui n’appartiennent à aucun littéral de la règle, on cherche alors la valeur de test qui produira l’entropie la plus faible dans la distribution, qu’on estime grâce aux statistiques qu’on possède sur les attributs (stockées dans les statistiques suffisantes).
+
+            Une fois le meilleur littéral construit, on vérifie que le gain de pureté associé à l'expansion de la règle est supérieur à la borne de Hoeffding. Si oui, on l’ajoute à la règle et on réinitialise ses statistiques. Les nouveaux individus couverts par la classe serviront à repeupler ces statistiques jusqu'à la prochaine extension de la règle.
+
+        
+        \subsection{Stratégies de classification}\label{ssec:nondecisional}
+        
+            On sait que chaque règle stocke la distribution de classe des individus qu'elle couvre. La classification d'un individu n'est donc pas automatique lorsqu'une règle le couvre, mais obéit à une \emph{stratégie de classification} qu'on peut paramétrer.
+
+            La stratégie de classification la plus simple consiste à classer l’individu non-étiqueté dans la classe la plus représentée par la règle le couvrant, quelle que soit la valeur de ses attributs. Mais cette stratégie ignore un bon nombre d’informations qui sont mises à disposition par l’algorithme. Une autre stratégie pourrait être de maximiser la probabilité de bon classement en utilisant l’ensemble des attributs de l’individu, par la méthode de «~Bayes naïf~».\cite{Gama-VFDR}
+            
+            Reprenons l’exemple de règle par défaut de la section \ref{ssec:stats}, dans le cas où un individu non étiqueté de couleur Sombre et mesurant 76 centimètres était traité par l’algorithme. Si la première stratégie de classification était utilisée, l’individu serait étiqueté comme étant de la classe «~oie~» car c’est la classe majoritaire couverte par la règle. Cependant, en utilisant la stratégie naïve de Bayes, qui s'intéresse aux valeur de ses attributs, on remarque qu’il est plus probable que l’individu soit en réalité de la classe «~cygne~». 
+
+            Notre implémentation est paramétrable et laisse le choix à l'utilisateur d'utiliser Bayes naïf ou non.
+
+            Une seconde nuance que nous faisons dans la prise de décision dépend de la nature ordonnée ou non de l'ensemble de règles. Dans un ensemble de règle ordonné, seule la première règle couvrant l’individu décide de sa classification (stratégie \texttt{First Hit}), alors que pour un ensemble de règle non-ordonné, toutes les règles couvrant l’individu procèdent à un vote pondéré pour classifier l’individu (stratégie \texttt{Weighted Max}).
+
+
+
+
+

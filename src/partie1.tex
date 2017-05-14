@@ -1,0 +1,65 @@
+\section{Introduction}
+
+    \subsection{Notions d'apprentissage artificiel}
+
+        Pour introduire les notions principales nécessaires à la compréhension du travail accompli, nous allons prendre un exemple qui nous servira de fil directeur : l’exemple classique de la différentiation entre les oies et les cygnes. La question posée est la suivante : «~Comment un programme peut-il apprendre à différencier ces deux oiseaux~?~».
+
+        \subsubsection{Règles de décisions}
+
+            La classification est une tâche qui consiste à attribuer une étiquette (qu'on appelle la \emph{classe}) à un individu qui n'en possède pas. Notre exemple des oiseaux est un exemple de classification: à partir de données sur un oiseau, on doit déterminer si c'est une oie ou un cygne. Dans les algorithmes qui utilisent des règles, on base la décision d'attribuer une étiquette particulière à l'individu sur la validation de certaines «~règles,~» c'est-à-dire la validation simultanée d'une ou plusieurs conditions sur les données qui décrivent l'individu à classifier.
+
+            Les données qui décrivent chaque individu sont les valeurs associées à des caractéristiques mesurables de l'individu, qu'on appelle des \emph{attributs}. Par exemple, pour nos oiseaux, la taille en centimètre est un attribut numérique (il prend ses valeurs dans un ensemble ordonné et potentiellement infini) et la couleur du plumage est un attribut nominal (il prend ses valeurs dans un ensemble fini et non-ordonné, par exemple «~clair~», «~moyen~» ou «~sombre~»). Les attributs nominaux et numériques sont les deux types de données que notre algorithme supporte.
+
+            Les règles qui nous permettent de prendre une décision de classification se présentent sous la forme de conjonctions de conditions sur les attributs de l'individu à classifier. On appelle ces conditions des \emph{littéraux} (ou \emph{antécédents}). Pour des attributs numériques, on compare la valeur avec des valeurs seuils, ainsi un antécédent numérique pourrait être \antd{taille > 50cm}. Les valeurs des attributs nominaux n'étant pas ordonnées, les antécédents nominaux sont de la forme \antd{plumage = clair}.
+
+            Une règle possible pour classifier les oiseaux est « Si \antd{plumage = "clair"} et \antd{taille > 140}, alors \antd{classe = "cygne"}. » Lorsqu'on tente de classifier un individu qui n'a pas d'étiquette, on lui attribue donc la classe "cygne" s'il vérifie les conditions de la règle. Si c'est le cas, on dit qu'il est \emph{couvert} par la règle.
+
+            Exprimer une règle sous la forme «~Si <suite de littéraux> alors <classe>~» est en fait une simplification du fonctionnement des règles de décision utilisées par VFDR. En réalité, nos règles stockent, pour chaque classe, des statistiques sur les individus couverts appartenant à cette classe. Lorsqu’un individu non-étiqueté est couvert par une règle, on ne peut donc pas décider immédiatement de sa classe, on utilise pour cela une stratégie de classification (plus d'explications en section \ref{ssec:nondecisional}).
+
+
+        \subsubsection{Apprentissage}\label{ssec:apprentissage}
+
+           Le but d'un algorithme d'apprentissage est de constituer un ensemble de règles qui décrivent au mieux les individus déjà observés pour avoir une estimation de la classe d'un nouvel individu à classifier. Pour entraîner un tel algorithme, c'est-à-dire pour qu'il construise un modèle pertinent, on lui fournit un \emph{échantillon d'apprentissage} constitué d'individus déjà étiquetés. Pour notre exemple des cygnes et des oies, on peut représenter un échantillon d'apprentissage sur un diagramme comme celui présenté en figure \ref{fig:example}. À partir de ces données, il se dégage que la plupart des oiseaux au plumage clair sont des cygnes, et tous les oiseaux au plumage sombre sont des oies. De plus, les cygnes sont plus grands que les oies en général. En conséquence, un ensemble de règles à peu près pertinent pourrait être:
+            \begin{itemize}
+                \item Si \antd{plumage = "clair"} et \antd{taille > 140}, alors \antd{classe = "cygne"};
+                \item Si \antd{plumage = "moyen"} et \antd{taille > 170}, alors \antd{classe = "cygne"};
+                \item Si \antd{plumage = "sombre"}, alors \antd{classe = "oie"};
+                \item Sinon \antd{classe = "oie"}.
+            \end{itemize}
+            \begin{figure}\centering
+                \begin{tikzpicture}
+                    \begin{axis}[%
+                        scale=.8,
+                        scale only axis,
+                        xlabel={\texttt{Taille (cm)}},
+                        ytick={0,1,2},
+                        yticklabels={clair,moyen,sombre},
+                        ylabel={\texttt{Plumage}},
+                        cycle list name=black white,
+                    %   xmajorticks=false,
+                        ymajorgrids,]
+                  %     legend style={at={(0.97,0.03)},anchor=south east,nodes=right}]
+                       \addplot table [scatter, only marks,header=false,col sep=comma] {src/geese.csv};
+
+                        \addlegendentry{Oies};
+
+                        \addplot table [scatter, only marks, header=false,col sep=comma] {src/swans.csv};
+
+                        \addlegendentry{Cygnes};
+                    \end{axis}
+                \end{tikzpicture}
+                \caption{Exemple d'échantillon d'apprentissage à deux attributs : \texttt{Plumage} est nominal, \texttt{Taille} est numérique.}
+                \label{fig:example}
+            \end{figure}
+
+
+
+        \subsubsection{Incrémentalité}
+
+            Les algorithmes d’apprentissage incrémentaux sont capables de mettre à jour les règles de décisions à chaque individu catégorisé qu’on lui fournit, tout en laissant la possibilité à tout moment d’utiliser lesdites règles de décisions pour classifier un individu dont on ne connaît pas encore la classe.
+
+            Ces algorithmes sont conçus pour optimiser leur utilisation d'espace mémoire et le temps qu'ils mettent à classifier une instance, et sont donc adaptés à l'apprentissage sur des flux de données importants et continus.
+
+    \subsection{Weka}
+
+        Weka (Waikato Environment for Knowledge Analysis) est une plate-forme d'apprentissage artificiel, programmée en Java, permettant de réaliser de nombreuses tâches d’apprentissage et de classification. Elle rend accessible les différentes techniques de Data Mining et de Machine Learning et  permet d’appliquer rapidement ces techniques sur des problèmes concrets. Elle propose aussi une API très complète pour l'implémentation de nouveaux algorithmes.
