@@ -31,3 +31,19 @@
         \paragraph{Expansion d'une règle} Pour l’expansion d’une règle, une liste de \texttt{CandidateAntd} (antécédents candidats) est créée. Le score de chaque candidat est évalué à l’aide d’un objet \texttt{ExpansionMetric}. Notons qu’\texttt{ExpansionMetric} est une classe abstraite, mais qu’elle n’a qu’une seule spécialisation possible : \texttt{Entropy}, qui utilise des calculs d’entropie pour évaluer la qualité d’une séparation. La mise en place d’une classe abstraite permet de laisser la possibilité d’améliorer l’implémentation, en ajoutant des méthodes d’évaluation de séparation, en limitant les modifications à apporter au code existant.
         
         \paragraph{Prédiction} Lorsque l’on demande au \texttt{Vfdr} de classifier un exemple via la méthode \texttt{distributionForInstance}, sa stratégie de classification (représentée par la classe abstraite ClassificationStrategy) entre en jeu. Pour les ensembles ordonnés de règles, la stratégie est de type FirstHit, on renvoie la classe donnée par la première règle qui couvre l’exemple. Pour les ensembles non ordonnés, la stratégie est de type WeightedMax, on choisit alors la classe à partir de la règle qui couvre l’exemple et a le poids le plus élevé (le plus grand nombre total d’exemples couverts).
+
+    \subsection{Limites de cette implémentation}
+
+        Pas trop de problèmes avec la mémoire, car tous les exemples ne sont pas mémorisés, on conserve des statistiques suffisantes. Il y a seulement une augmentation possible du nombre de règles, qui prendraient plus de place mémoire.
+
+        Au niveau de la complexité en temps : le plus problématique est la détermination d’antécédent pour étendre une règle. Il faudrait regarder la complexité exacte des opérations. Faire remarquer qu’on met en place un seuil minimal avant d’étendre la règle, justement à cause du temps de calcul élevé.
+        
+        Autres limites de l’algo : les types de données gérés. La classe est forcément un attribut nominal.
+        
+        L’algorithme ne gère pas le concept drift (une variante de l’algorithme qui le gère existe, mais nous ne l’avons pas implémentée dans ce projet).
+
+    \subsection{Comparaison avec un autre algorithme: VFDT}
+
+        Dans le domaine du machine learning, surtout dans les tâches de classification les arbres de décisions (tels que VFDT) sont très largement utilisés. Ils ont l’avantage d’être lisibles avec une structure hiérarchique où les  feuilles de l’arbre représentent les différentes décisions possibles et sont atteints en fonction des décisions prises à chaque étape. Ils ont également de bonnes capacités prédictives. Par ailleurs, tout arbre de décision peut être facilement transformé en une collection de règles. Chaque règle correspond au chemin de la racine à une feuille, et il y a autant de règles que de feuilles. Ce processus génère un ensemble  de règles avec la même complexité qu’un arbre de décision. 
+
+        Le VFDT (Very Fast Decision Tree) est l’un des algorithmes de classification incrémentale les plus connus. Cet algorithme peut automatiquement s’adapter à l’évolution des données au cours du temps. Par ailleurs lorsque les données changent au cours du temps, cette adaptation devient de plus en plus lente et pénible pour un arbre de décision dans la mesure où dans certains cas il faudrait reconstruire le classifieur à partir de zéro ou exécuter un changement complexe dans la structure de l’arbre. Par contre, un algorithme comme VFDR a une capacité à s’adapter beaucoup plus facilement avec les changements que peuvent subir les données. Ils ont l’avantage d’avoir des règles individuelles qui peuvent être gérées de manière indépendante. L’ensemble de règles peut être donc plus facilement modifié : les règles obsolètes peuvent être tout simplement supprimées. 
