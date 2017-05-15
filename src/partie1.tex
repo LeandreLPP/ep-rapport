@@ -2,13 +2,13 @@
 
     \subsection{Notions d'apprentissage artificiel}
 
-        Pour introduire les notions principales nécessaires à la compréhension du travail accompli, nous allons prendre un exemple qui nous servira de fil directeur : l’exemple classique de la différentiation entre les oies et les cygnes. La question posée est la suivante : «~Comment un programme peut-il apprendre à différencier ces deux oiseaux~?~»
+        Pour introduire les notions principales nécessaires à la compréhension du travail accompli, nous allons prendre un exemple qui nous servira de fil directeur : l’exemple classique de la différenciation entre les oies et les cygnes. La question posée est la suivante : «~Comment un programme peut-il apprendre à différencier ces deux oiseaux~?~»
 
         \subsubsection{Règles de décisions}
 
             La classification est une tâche qui consiste à attribuer une étiquette (que l'on appelle \emph{classe}) à un individu qui n'en possède pas. Notre exemple des oiseaux est un exemple de classification: à partir de données sur un oiseau, on doit déterminer s'il s'agit d'une oie ou d'un cygne. Dans les algorithmes qui utilisent des règles, on base la décision d'attribuer une étiquette particulière à l'individu sur la validation de certaines \emph{règles}, c'est-à-dire la validation simultanée d'une ou plusieurs conditions sur les données qui décrivent l'individu à classifier.
 
-            Les données qui décrivent chaque individu sont les valeurs associées à des caractéristiques mesurables de l'individu, que l'on appelle des \emph{attributs}. Par exemple, pour nos oiseaux, la taille en centimètre est un attribut numérique (il prend ses valeurs dans un ensemble ordonné et potentiellement infini) et la couleur du plumage est un attribut nominal (il prend ses valeurs dans un ensemble fini et non-ordonné, ici \["clair", "moyen", "sombre"\]). Les attributs nominaux et numériques sont les deux types de données que notre algorithme supporte.
+            Les données qui décrivent chaque individu sont les valeurs associées à des caractéristiques mesurables de l'individu, que l'on appelle des \emph{attributs}. Par exemple, pour nos oiseaux, la taille en centimètres est un attribut numérique (il prend ses valeurs dans un ensemble ordonné et potentiellement infini) et la couleur du plumage est un attribut nominal (il prend ses valeurs dans un ensemble fini et non-ordonné, ici \["clair", "moyen", "sombre"\]). Les attributs nominaux et numériques sont les deux types de données que notre algorithme supporte.
 
             Les règles qui nous permettent de prendre une décision de classification se présentent sous la forme de conjonctions de conditions sur les attributs de l'individu à classifier. On appelle ces conditions des \emph{littéraux} (ou \emph{antécédents}). Pour des attributs numériques, on compare la valeur avec des valeurs seuils. Ainsi, un antécédent numérique pourrait être \antd{taille > 50cm}. Les valeurs des attributs nominaux n'étant pas ordonnées, les antécédents nominaux sont de la forme \antd{plumage = clair}.
 
