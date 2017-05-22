@@ -12,9 +12,7 @@
 
             Les règles qui nous permettent de prendre une décision de classification se présentent sous la forme de conjonctions de conditions sur les attributs de l'individu à classifier. On appelle ces conditions des \emph{littéraux} (ou \emph{antécédents}). Pour des attributs numériques, on compare la valeur avec des valeurs seuils. Ainsi, un antécédent numérique pourrait être \antd{taille > 50cm}. Les valeurs des attributs nominaux n'étant pas ordonnées, les antécédents nominaux sont de la forme \antd{plumage = clair}.
 
-            Une règle permettant de classifier les oiseaux peut se présenter de la façon suivante : « Si \antd{plumage = "clair"} et \antd{taille > 140}, alors \antd{classe = "cygne"}. » Lorsque l'on tente de classifier un individu qui n'a pas d'étiquette, on lui attribue donc la classe "cygne" s'il vérifie les conditions de la règle. Si c'est le cas, on dit qu'il est \emph{couvert} par la règle.
-
-            Exprimer une règle sous la forme «~Si <suite de littéraux> alors <classe>~» est en fait une simplification du fonctionnement des règles de décision utilisées par VFDR. En réalité, nos règles stockent, pour chaque classe, des statistiques sur les individus couverts appartenant à cette classe. Lorsqu’un individu non-étiqueté est couvert par une règle, on ne peut donc pas décider immédiatement de sa classe, on utilise pour cela une stratégie de classification (plus d'explications en section \ref{ssec:nondecisional}).
+            Un individu est dit \emph{couvert} par une règle lorsque ses attributs correspondent à tout les littéraux de la règle. 
 
 
         \subsubsection{Apprentissage}\label{ssec:apprentissage}
