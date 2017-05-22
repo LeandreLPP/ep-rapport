@@ -33,17 +33,6 @@
 
     \subsection{Limites de cette implémentation}
 
-        La principale limite de l’algorithme réside sur les types de données qu’il peut gérer. Ainsi, l’attribut cible (la classe) doit forcément être un attribut nominal.
+        Le temps de traitement d'un individu est suffisamment bas pour qu'il ne constitue pas un problème. Cependant la routine d'expansion de règle est très coûteuse et constitue le principal goulot d'étranglement pour le temps d'exécution du programme. Pour cette raison, nous avons défini une borne inférieure au nombre d'exemples que l'algorithme doit voir passer avant de tenter l'expansion. Cette limite est configurable et doit être adaptée au nombre d'exemples de l'échantillon d'apprentissage.
 
-        Bien que l’algorithme VFDR ne requière pas un stockage en mémoire des exemples (car seules les statistiques suffisantes sont conservées), un grand ensemble de significative du nombre de règles augmenterait l'empreinte mémoire du programme.
-
-        À propos de la complexité en temps, le temps de traitement d'un individu est suffisamment bas pour qu'il ne constitue pas un problème. Cependant la routine d'expansion de règle est très coûteuse et constitue le principal goulot d'étranglement pour le temps d'exécution du programme. Pour cette raison, nous avons défini une borne inférieure au nombre d'exemples que l'algorithme doit voir passer avant de tenter l'expansion. Cette limite est configurable et doit être adaptée au nombre d'exemples de l'échantillon d'apprentissage.
-
-        Enfin, l’algorithme ne peut pas gérer de changement de la fonction cible (ce que l'on appelle la \emph{dérive de concept}). Il existe une variante de l'algorithme qui peut s'y adapter, mais son implémentation était hors du champ de cette étude pratique.
-
-
-    \subsection{Comparaison avec un autre algorithme: VFDT}
-
-        Pour les tâches de classification, les arbres de décision sont plus largement utilisés que les règles de décision. Dans un arbre de décision, chaque noeud représente un choix entre deux possibilités, qui dépend d'une condition booléenne sur les attributs, comme les littéraux dans les règles de décision. Les feuilles contiennent une distribution de classe recensant les individus qui vérifient toutes les conditions rencontrées sur le chemin depuis la racine et ce sont elles qui prennent les décisions de classification. Cette structure hiérarchique rend les arbres facilement lisibles pour un humain et leur offre également de bonnes capacités prédictives. Un autre avantage est le fait qu'ils partitionnent entièrement l'espace des individus: tout individu est garanti d'atteindre une feuille. Cependant leur structure rigide les rend aussi difficilement réorganisables au fil du temps, contrairement aux ensembles de règles construits par des algorithmes comme VFDR.
-        
-        Le VFDT (Very Fast Decision Tree) est un algorithme de classification incrémentale utilisant un arbre de décision. Tout comme VFDR, cet algorithme peut être adapté pour prendre en compte l’évolution du concept cible au cours du temps (ce qu'on appelle la \emph{dérive de concept}). En revanche, grâce aux propriétés des règles de décision, VFDR peut adapter son modèle au fil du temps de façon beaucoup moins coûteuse, ce qui le rend plus robuste pour l'apprentissage sur de grands jeux de données.
+        Ll’algorithme ne peut pas gérer de changement de la fonction cible (ce que l'on appelle la \emph{dérive de concept}). Il existe une variante de l'algorithme qui peut s'y adapter, mais son implémentation était hors du champ de cette étude pratique.
