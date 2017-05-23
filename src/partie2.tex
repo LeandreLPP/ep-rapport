@@ -6,7 +6,7 @@
 
             L’algorithme commence avec un ensemble vide de règles et une règle par défaut. Cette règle, ne comprenant aucun littéral, couvre tous les individus qui ne sont couverts par aucune autre règle. On peut l'exprimer par «~Sinon...~» comme dans l'exemple d’ensemble de règles de la section \ref{ssec:apprentissage}. À chaque règle est associée une structure de données permettant de calculer les statistiques nécessaires au traitement de ladite règle.
 
-            Lorsque l’algorithme reçoit un individu étiqueté, il tente de le faire correspondre à chaque règle de l’ensemble de règles ou à la règle par défaut. Si la règle qui le couvre contient suffisamment d’individus, elle est étendue pour améliorer sa précision. L’extension d’une règle consiste à lui rajouter un littéral. Lorsque c’est la règle vide qui devrait être étendue, une nouvelle règle est créée à la place. Ainsi, l’algorithme construit l’ensemble de règles qui servira à classifier les individus non étiquetés.
+            Lorsque l’algorithme reçoit un individu étiqueté, il tente de le faire correspondre à chaque règle de l’ensemble de règles ou à la règle par défaut. Si la règle qui le couvre contient suffisamment d’individus, elle est étendue pour améliorer sa précision. L’extension d’une règle consiste à lui rajouter un littéral. Lorsque c’est la règle vide qui doit être étendue, une nouvelle règle est créée à la place. Ainsi, l’algorithme construit l’ensemble de règles qui servira à classifier les individus non étiquetés.
 
         \subsection{Statistiques suffisantes}\label{ssec:stats}
 
@@ -17,7 +17,7 @@
                 \item Un entier correspondant au nombre d’individus couverts par la règle;
                 \item Un vecteur d’entiers stockant le nombre d’occurrences de chaque classe parmi les individus couverts (distribution de classes);
                 \item Une matrice représentant le nombre d'occurrences de chaque valeur des attributs nominaux pour chaque classe;
-                \item Un estimateur gaussien par classe, permettant de calculer pour chaque attribut numérique la probabilité de rencontrer une valeur supérieur à une valeur déjà rencontrée.
+                \item Un \emph{estimateur gaussien} par classe, dont nous ne détaillerons pas le fonctionnement dans ce rapport, permettant de calculer pour chaque attribut numérique la probabilité de rencontrer une valeur supérieure à une valeur déjà rencontrée.
             \end{itemize}
 
             Prenons l’exemple des oies et des cygnes. Nous lançons l'algorithme sur les sept individus suivants :
